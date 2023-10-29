@@ -3388,13 +3388,15 @@ input, select, textarea {
 		#intro h1 {
 			font-size: 5rem;
 			line-height: 1;
+			text-shadow: -7px 1px 12px #2d3a2e;
 		}
 
 		#intro p {
-			font-size: 1.25rem;
-			font-style: italic;
+			font-size: 0.9rem;
 			margin-top: -0.25rem;
+			font-weight: 510;
 			text-align: center;
+			text-shadow: -7px 1px 12px #2d3a2e;
 		}
 
 		#intro + #header {
