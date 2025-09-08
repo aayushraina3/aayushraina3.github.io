@@ -8,6 +8,11 @@ export default defineConfig({
   build: {
     outDir: "dist",
     assetsDir: "assets",
+    rollupOptions: {
+      output: {
+        manualChunks: undefined,
+      },
+    },
   },
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
@@ -16,5 +21,9 @@ export default defineConfig({
     fs: {
       strict: false,
     },
+    middlewareMode: false,
+  },
+  esbuild: {
+    jsx: "automatic",
   },
 })
