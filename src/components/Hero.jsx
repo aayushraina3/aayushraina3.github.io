@@ -165,7 +165,7 @@ const Hero = () => {
               </a>
             </motion.div> */}
 
-            <motion.div className="hero-social" variants={itemVariants}>
+            {/* <motion.div className="hero-social" variants={itemVariants}>
               <a
                 href="https://github.com"
                 target="_blank"
@@ -182,7 +182,7 @@ const Hero = () => {
               >
                 <FiLinkedin />
               </a>
-            </motion.div>
+            </motion.div> */}
           </div>
 
           <motion.div className="hero-visual" variants={avatarVariants}>
