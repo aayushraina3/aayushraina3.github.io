@@ -59,55 +59,55 @@ const Skills = () => {
     { name: "GCP", icon: SiGooglecloud, color: "#4285F4" }, // Google Cloud blue
     { name: "Postman", icon: SiPostman, color: "#FF6C37" }, // Postman orange
     { name: "Notion", icon: SiNotion, color: "#000000" }, // Notion black
-    {
-      name: "Wireframing",
-      icon: MdOutlineDesignServices,
-      color: "var(--accent-primary)",
-    },
-    {
-      name: "Prototyping",
-      icon: MdOutlineQuiz,
-      color: "var(--accent-primary)",
-    },
-    {
-      name: "User Research",
-      icon: FaSearchPlus,
-      color: "var(--accent-primary)",
-    },
-    { name: "Usability Testing", icon: MdApi, color: "var(--accent-primary)" },
-    {
-      name: "Persona Development",
-      icon: MdOutlinePersonPin,
-      color: "var(--accent-primary)",
-    },
-    { name: "Figma (basic)", icon: FaFigma, color: "#F24E1E" }, // Figma red-orange
-    {
-      name: "Accessibility (WCAG)",
-      icon: FaUniversalAccess,
-      color: "var(--accent-primary)",
-    },
-    { name: "Agile", icon: MdOutlineTimeline, color: "var(--accent-primary)" },
-    {
-      name: "Sprint Planning",
-      icon: MdOutlineTimeline,
-      color: "var(--accent-primary)",
-    },
-    {
-      name: "Client Demos",
-      icon: MdOutlinePresentToAll,
-      color: "var(--accent-primary)",
-    },
-    { name: "API Testing", icon: MdApi, color: "var(--accent-primary)" },
-    {
-      name: "Design Thinking",
-      icon: FaLightbulb,
-      color: "var(--accent-primary)",
-    },
-    {
-      name: "Cross-functional Collaboration",
-      icon: FaUsers,
-      color: "var(--accent-primary)",
-    },
+    // {
+    //   name: "Wireframing",
+    //   icon: MdOutlineDesignServices,
+    //   color: "var(--accent-primary)",
+    // },
+    // {
+    //   name: "Prototyping",
+    //   icon: MdOutlineQuiz,
+    //   color: "var(--accent-primary)",
+    // },
+    // {
+    //   name: "User Research",
+    //   icon: FaSearchPlus,
+    //   color: "var(--accent-primary)",
+    // },
+    // { name: "Usability Testing", icon: MdApi, color: "var(--accent-primary)" },
+    // {
+    //   name: "Persona Development",
+    //   icon: MdOutlinePersonPin,
+    //   color: "var(--accent-primary)",
+    // },
+    // { name: "Figma (basic)", icon: FaFigma, color: "#F24E1E" }, // Figma red-orange
+    // {
+    //   name: "Accessibility (WCAG)",
+    //   icon: FaUniversalAccess,
+    //   color: "var(--accent-primary)",
+    // },
+    // { name: "Agile", icon: MdOutlineTimeline, color: "var(--accent-primary)" },
+    // {
+    //   name: "Sprint Planning",
+    //   icon: MdOutlineTimeline,
+    //   color: "var(--accent-primary)",
+    // },
+    // {
+    //   name: "Client Demos",
+    //   icon: MdOutlinePresentToAll,
+    //   color: "var(--accent-primary)",
+    // },
+    // { name: "API Testing", icon: MdApi, color: "var(--accent-primary)" },
+    // {
+    //   name: "Design Thinking",
+    //   icon: FaLightbulb,
+    //   color: "var(--accent-primary)",
+    // },
+    // {
+    //   name: "Cross-functional Collaboration",
+    //   icon: FaUsers,
+    //   color: "var(--accent-primary)",
+    // },
   ]
 
   const containerVariants = {
@@ -143,116 +143,34 @@ const Skills = () => {
           className="section-header"
         >
           <h2 className="heading-secondary text-center">
-            Skills & <span className="text-accent">Expertise</span>
+            Skills & Technologies
           </h2>
-          <p className="text-body text-center section-subtitle">
-            Technologies and tools I use to bring ideas to life
-          </p>
         </motion.div>
 
         <motion.div
-          className="skills-container"
+          className="skills-icons-container"
           variants={containerVariants}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
         >
-          <div className="skills-grid">
-            {skills.map((skill, skillIndex) => (
+          <div className="skills-icons-grid">
+            {skills.map((skill, _skillIndex) => (
               <motion.div
                 key={skill.name}
-                className="skill-card circular"
+                className="skill-icon-item"
                 variants={skillVariants}
                 whileHover={{
-                  scale: 1.1,
-                  rotate: [0, -5, 5, 0],
-                  transition: { duration: 0.3 },
+                  scale: 1.2,
+                  transition: { duration: 0.2 },
                 }}
-                whileTap={{ scale: 0.95 }}
                 style={{ "--skill-color": skill.color }}
                 title={skill.name}
               >
-                <div className="skill-icon-wrapper">
-                  <skill.icon className="skill-icon" />
-                  <motion.div
-                    className="skill-glow"
-                    animate={{
-                      scale: [1, 1.2, 1],
-                      opacity: [0.2, 0.5, 0.2],
-                    }}
-                    transition={{
-                      duration: 2 + (skillIndex % 3) * 0.5,
-                      repeat: Infinity,
-                      delay: skillIndex * 0.1,
-                    }}
-                  />
-                </div>
-
-                {/* Tooltip */}
-                <div className="skill-tooltip">{skill.name}</div>
-
-                {/* Floating particles effect */}
-                <div className="skill-particles">
-                  {[...Array(2)].map((_, i) => (
-                    <motion.div
-                      key={i}
-                      className="particle"
-                      animate={{
-                        y: [0, -15, 0],
-                        x: [0, Math.random() * 8 - 4, 0],
-                        opacity: [0, 0.8, 0],
-                      }}
-                      transition={{
-                        duration: 2 + Math.random(),
-                        repeat: Infinity,
-                        delay: Math.random() * 2,
-                      }}
-                    />
-                  ))}
-                </div>
+                <skill.icon className="skill-icon-simple" />
               </motion.div>
             ))}
           </div>
         </motion.div>
-
-        {/* Background decorative elements */}
-        <div className="skills-background">
-          <motion.div
-            className="bg-circle circle-1"
-            animate={{
-              rotate: [0, 360],
-              scale: [1, 1.1, 1],
-            }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-          />
-          <motion.div
-            className="bg-circle circle-2"
-            animate={{
-              rotate: [360, 0],
-              scale: [1, 0.9, 1],
-            }}
-            transition={{
-              duration: 25,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-          />
-          <motion.div
-            className="bg-circle circle-3"
-            animate={{
-              rotate: [0, 360],
-              scale: [1, 1.2, 1],
-            }}
-            transition={{
-              duration: 30,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-          />
-        </div>
       </div>
     </section>
   )
