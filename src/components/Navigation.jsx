@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
+import { useNavigate } from "react-router-dom"
 import { FiMenu, FiX, FiGithub, FiLinkedin, FiMail } from "react-icons/fi"
 import "./Navigation.css"
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const navigate = useNavigate()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,21 +19,37 @@ const Navigation = () => {
   }, [])
 
   const navItems = [
-    { name: "Home", href: "#home" },
-    { name: "Skills", href: "#skills" },
-    { name: "Projects", href: "#projects" },
-    { name: "Contact", href: "#contact" },
+    {
+      name: "Projects",
+      action: "navigate",
+      target: "/projects",
+    },
+    {
+      name: "Resume",
+      action: "download",
+      target: "/Aayush_Raina_Resume.pdf",
+    },
+    {
+      name: "Contact",
+      action: "navigate",
+      target: "/contact",
+    },
   ]
 
-  const handleNavClick = (href) => {
+  const handleNavClick = (item) => {
     setIsMobileMenuOpen(false)
 
-    const element = document.querySelector(href)
-    if (element) {
-      element.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      })
+    if (item.action === "navigate") {
+      navigate(item.target)
+    } else if (item.action === "download") {
+      // Create a temporary link element to trigger download
+      const link = document.createElement("a")
+      link.href = item.target
+      link.download = "Aayush_Raina_Resume.pdf"
+      link.target = "_blank"
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
     }
   }
 
@@ -43,80 +61,59 @@ const Navigation = () => {
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
       <div className="nav-container">
-        <motion.div
-          className="nav-logo"
-          whileHover={{ scale: 1.05 }}
-          transition={{ duration: 0.2 }}
-        >
-          <a
-            href="#home"
-            onClick={(e) => {
-              e.preventDefault()
-              handleNavClick("#home")
-            }}
+        {/* Social Icons - Top Right */}
+        <div className="social-icons">
+          <motion.a
+            href="https://github.com/aayushraina23"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="social-link"
+            whileHover={{ scale: 1.1, y: -2 }}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7, duration: 0.5 }}
           >
-            <span className="logo-text">Aayush</span>
-            <span className="logo-accent">Raina</span>
-          </a>
-        </motion.div>
+            <FiGithub />
+          </motion.a>
+          <motion.a
+            href="https://linkedin.com/in/aayushraina23"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="social-link"
+            whileHover={{ scale: 1.1, y: -2 }}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8, duration: 0.5 }}
+          >
+            <FiLinkedin />
+          </motion.a>
+          <motion.a
+            href="mailto:aayushraina23@gmail.com"
+            className="social-link"
+            whileHover={{ scale: 1.1, y: -2 }}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.9, duration: 0.5 }}
+          >
+            <FiMail />
+          </motion.a>
+        </div>
 
-        {/* Desktop Navigation */}
-        <div className="nav-menu desktop-menu">
+        {/* Centered Navigation Menu */}
+        <div className="nav-menu centered-menu">
           {navItems.map((item, index) => (
-            <motion.a
+            <motion.button
               key={item.name}
-              href={item.href}
               className="nav-link"
-              onClick={(e) => {
-                e.preventDefault()
-                handleNavClick(item.href)
-              }}
+              onClick={() => handleNavClick(item)}
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 + 0.3, duration: 0.5 }}
               whileHover={{ y: -2 }}
             >
               {item.name}
-            </motion.a>
+            </motion.button>
           ))}
-
-          {/* Social Icons */}
-          <div className="social-icons">
-            <motion.a
-              href="https://github.com/aayushraina3"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="social-link"
-              whileHover={{ scale: 1.1, y: -2 }}
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7, duration: 0.5 }}
-            >
-              <FiGithub />
-            </motion.a>
-            <motion.a
-              href="https://www.linkedin.com/in/aayushraina03/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="social-link"
-              whileHover={{ scale: 1.1, y: -2 }}
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8, duration: 0.5 }}
-            >
-              <FiLinkedin />
-            </motion.a>
-            <motion.a
-              href="mailto:aayushraina3@gmail.com"
-              className="social-link"
-              whileHover={{ scale: 1.1, y: -2 }}
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.9, duration: 0.5 }}
-            >
-              <FiMail />
-            </motion.a>
-          </div>
         </div>
 
         {/* Mobile Menu Toggle */}
@@ -141,14 +138,10 @@ const Navigation = () => {
         >
           <div className="mobile-menu-content">
             {navItems.map((item, index) => (
-              <motion.a
+              <motion.button
                 key={item.name}
-                href={item.href}
                 className="mobile-nav-link"
-                onClick={(e) => {
-                  e.preventDefault()
-                  handleNavClick(item.href)
-                }}
+                onClick={() => handleNavClick(item)}
                 initial={{ opacity: 0, x: 50 }}
                 animate={{
                   opacity: isMobileMenuOpen ? 1 : 0,
@@ -158,7 +151,7 @@ const Navigation = () => {
                 whileHover={{ x: 10 }}
               >
                 {item.name}
-              </motion.a>
+              </motion.button>
             ))}
 
             {/* Mobile Social Icons */}

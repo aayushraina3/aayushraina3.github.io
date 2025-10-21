@@ -5,56 +5,56 @@ import avatarImage from "../assets/Self.png"
 import "./Hero.css"
 
 const Hero = () => {
-  // Multi-language greetings
-  const greetings = [
-    { text: "नमस्ते", language: "Hindi" },
-    { text: "Hola", language: "Spanish" },
+  // Simple loading greetings
+  const loadingGreetings = [
     { text: "Hello", language: "English" },
-    { text: "Bonjour", language: "French" },
-    { text: "こんにちは", language: "Japanese" },
+    { text: "नमस्ते", language: "Hindi" },
   ]
 
   const [currentGreeting, setCurrentGreeting] = useState(0)
   const [showMainContent, setShowMainContent] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    // Start cycling through greetings immediately
-    const greetingInterval = setInterval(() => {
-      setCurrentGreeting((prev) => (prev + 1) % greetings.length)
-    }, 2000) // Change greeting every 2 seconds
+    // Switch greeting once after 1 second
+    const greetingTimer = setTimeout(() => {
+      setCurrentGreeting(1)
+    }, 1000)
 
-    // Show main content after initial greeting animation (3 seconds)
-    const contentTimer = setTimeout(() => {
+    // Hide loading and show main content after 2 seconds
+    const loadingTimer = setTimeout(() => {
+      setIsLoading(false)
       setShowMainContent(true)
-    }, 3000)
+    }, 2000)
 
     return () => {
-      clearInterval(greetingInterval)
-      clearTimeout(contentTimer)
+      clearTimeout(greetingTimer)
+      clearTimeout(loadingTimer)
     }
-  }, [greetings.length])
+  }, [])
 
-  // Greeting animation variants
-  const greetingVariants = {
+  // Loading animation variants
+  const loadingVariants = {
     initial: {
       opacity: 0,
       scale: 0.8,
       y: 20,
     },
     animate: {
-      opacity: 0.2,
+      opacity: 1,
       scale: 1,
       y: 0,
       transition: {
-        duration: 0.8,
+        duration: 0.6,
         ease: "easeOut",
       },
     },
     exit: {
       opacity: 0,
-      scale: 1.1,
+      scale: 0.8,
+      y: -20,
       transition: {
-        duration: 0.5,
+        duration: 0.4,
         ease: "easeIn",
       },
     },
@@ -81,16 +81,16 @@ const Hero = () => {
     },
   }
 
-  const textVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        duration: 1,
-        ease: "easeOut",
-      },
-    },
-  }
+  // const textVariants = {
+  //   hidden: { opacity: 0 },
+  //   visible: {
+  //     opacity: 1,
+  //     transition: {
+  //       duration: 1,
+  //       ease: "easeOut",
+  //     },
+  //   },
+  // }
 
   const avatarVariants = {
     hidden: { y: 20, opacity: 0 },
@@ -107,23 +107,32 @@ const Hero = () => {
   return (
     <section className="hero section" id="home">
       <div className="container">
-        {/* Animated multi-language greeting backdrop */}
-        <div className="hero-greeting-large">
-          <AnimatePresence mode="wait">
-            <motion.span
-              key={currentGreeting}
-              className="namaste-text"
-              variants={greetingVariants}
-              initial="initial"
-              animate="animate"
-              exit="exit"
+        {/* Loading Animation - shows for 2 seconds */}
+        <AnimatePresence>
+          {isLoading && (
+            <motion.div
+              className="loading-overlay"
+              initial={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
             >
-              {greetings[currentGreeting].text}
-            </motion.span>
-          </AnimatePresence>
-        </div>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentGreeting}
+                  className="loading-greeting"
+                  variants={loadingVariants}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                >
+                  {loadingGreetings[currentGreeting].text}
+                </motion.div>
+              </AnimatePresence>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
-        {/* Main content - only show after initial greeting animation */}
+        {/* Main content - only show after loading */}
         <motion.div
           className="hero-content"
           variants={containerVariants}
@@ -131,57 +140,34 @@ const Hero = () => {
           animate={showMainContent ? "visible" : "hidden"}
         >
           <div className="hero-text">
-            <motion.div className="hero-name-container" variants={textVariants}>
-              <span className="hero-prefix">I'm </span>
-              <span className="hero-name heading-primary">Aayush Raina</span>
+            <motion.div className="hero-intro" variants={itemVariants}>
+              <span className="hero-greeting">Hello, I'm</span>
+              <h1 className="hero-name">Aayush Raina</h1>
+              {/* <h2 className="hero-title">Full-Stack Application Developer</h2> */}
             </motion.div>
 
-            <motion.p
-              className="hero-description text-body"
-              variants={itemVariants}
-            >
-              A{" "}
-              <span className="hero-highlight">
-                Full-Stack Application Developer
-              </span>{" "}
-              with 3+ years of experience in a corporate{" "}
-              <span className="hero-highlight">Agile</span> setting, and a deep
-              academic background in{" "}
+            <motion.p className="hero-description" variants={itemVariants}>
+              With 3 years of experience as a{" "}
+              <span className="hero-highlight">Software Engineer</span> and an academic background in{" "}
               <span className="hero-highlight">Human-Computer Interaction</span>{" "}
-              and <span className="hero-highlight">AI</span>, my goal is to
-              engineer solutions that are accessible, simplify complex user
-              flows, and drive technology adoption by understanding user
-              psychology.
+              and <span className="hero-highlight">AI</span>, I engineer
+              solutions that are accessible, simplify complex user flows, and
+              drive technology adoption by understanding user psychology.
             </motion.p>
 
-            {/* <motion.div className="hero-actions" variants={itemVariants}>
-              <a href="#contact" className="btn btn-primary">
-                <FiMail />
-                Get In Touch
-              </a>
-              <a href="src/assets/Aayush_Raina_CV.pdf" className="btn btn-secondary" download>
-                <FiDownload />
-                Download CV
-              </a>
-            </motion.div> */}
-
-            {/* <motion.div className="hero-social" variants={itemVariants}>
-              <a
-                href="https://github.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="social-link"
-              >
-                <FiGithub />
-              </a>
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="social-link"
-              >
-                <FiLinkedin />
-              </a>
+            {/* <motion.div className="hero-stats" variants={itemVariants}>
+              <div className="stat-item">
+                <span className="stat-number">3+</span>
+                <span className="stat-label">Years Experience</span>
+              </div>
+              <div className="stat-item">
+                <span className="stat-number">50+</span>
+                <span className="stat-label">Projects Completed</span>
+              </div>
+              <div className="stat-item">
+                <span className="stat-number">∞</span>
+                <span className="stat-label">Problems Solved</span>
+              </div>
             </motion.div> */}
           </div>
 
@@ -207,7 +193,7 @@ const Hero = () => {
         </motion.div>
 
         {/* Scroll indicator */}
-        <motion.div
+        {/* <motion.div
           className="scroll-indicator"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -225,7 +211,7 @@ const Hero = () => {
             <div className="scroll-wheel"></div>
           </motion.div>
           <span className="scroll-text">Scroll to explore</span>
-        </motion.div>
+        </motion.div> */}
       </div>
     </section>
   )
