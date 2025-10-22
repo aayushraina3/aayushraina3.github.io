@@ -3,7 +3,7 @@
   color: var(--white);
   position: relative;
   overflow: hidden;
-  padding: var(--spacing-3xl) 0 0;
+  /* padding: var(--spacing-3xl) 0 0; */
 }
 
 .footer-content {

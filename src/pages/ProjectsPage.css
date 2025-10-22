@@ -11,29 +11,6 @@
   margin-bottom: var(--spacing-xl);
 }
 
-.back-button {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-xs);
-  background: transparent;
-  border: 2px solid var(--prussian-blue);
-  color: var(--prussian-blue);
-  padding: var(--spacing-sm) var(--spacing-md);
-  border-radius: var(--radius-md);
-  font-family: var(--font-secondary);
-  font-weight: 500;
-  font-size: 0.95rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-bottom: var(--spacing-lg);
-}
-
-.back-button:hover {
-  background: var(--prussian-blue);
-  color: var(--eggshell);
-  transform: translateX(-4px);
-}
-
 .projects-page-title {
   font-family: var(--font-primary);
   font-size: 3rem;

@@ -4,9 +4,8 @@ import {
   FiExternalLink,
   FiGithub,
   FiCode,
-  FiShoppingCart,
-  FiMessageSquare,
-  FiTrendingUp,
+  FiTarget,
+  FiFileText,
 } from "react-icons/fi"
 import "./Projects.css"
 
@@ -19,55 +18,42 @@ const Projects = () => {
   const projects = [
     {
       id: 1,
-      title: "E-Commerce Platform",
+      title: "StayOnTrack",
       description:
-        "A full-stack e-commerce solution with modern UI, secure payments, and admin dashboard. Features include product management, order tracking, and real-time inventory updates.",
-      techStack: ["React", "Node.js", "MongoDB", "Stripe", "Tailwind CSS"],
+        "MSc Dissertation: AI-powered multi-agent productivity web app with Next.js frontend, NestJS backend, Ollama for local AI inference and Firebase Firestore for real-time tracking.",
+      techStack: [
+        "Next.js",
+        "NestJS",
+        "Ollama",
+        "Firebase",
+        "TypeScript",
+        "AI/ML",
+      ],
       image:
-        "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop&crop=center",
-      liveDemo: "https://demo-ecommerce.netlify.app",
-      github: "https://github.com/yourusername/ecommerce-platform",
-      icon: FiShoppingCart,
+        "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=600&h=400&fit=crop&crop=center",
+      // liveDemo: "https://stayontrack-demo.vercel.app",
+      github: "https://github.com/aayushraina3/stayontrack",
+      icon: FiTarget,
       color: "var(--sage-green)",
     },
     {
       id: 2,
-      title: "Social Media Dashboard",
+      title: "ATSReady",
       description:
-        "Analytics dashboard for social media management with real-time data visualization, content scheduling, and engagement tracking across multiple platforms.",
-      techStack: ["Next.js", "TypeScript", "PostgreSQL", "Chart.js", "Redux"],
+        "Next.js 15 application to check ATS compatibility in CVs and provide feedback, integrating Google Gemini AI API with client-side file processing and deployment to Vercel.",
+      techStack: [
+        "Next.js 15",
+        "Google Gemini AI",
+        "JavaScript",
+        "Vercel",
+        "File Processing",
+      ],
       image:
-        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop&crop=center",
-      liveDemo: "https://social-dashboard-demo.vercel.app",
-      github: "https://github.com/yourusername/social-dashboard",
-      icon: FiTrendingUp,
+        "https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=600&h=400&fit=crop&crop=center",
+      liveDemo: "https://ats-checker-rust.vercel.app/",
+      github: "https://github.com/aayushraina3/ats-checker",
+      icon: FiFileText,
       color: "var(--terracotta)",
-    },
-    {
-      id: 3,
-      title: "Real-time Chat Application",
-      description:
-        "Modern chat application with real-time messaging, file sharing, group chats, and emoji reactions. Built with WebSocket for instant communication.",
-      techStack: ["React", "Socket.io", "Express", "MongoDB", "Cloudinary"],
-      image:
-        "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=600&h=400&fit=crop&crop=center",
-      liveDemo: "https://realtime-chat-demo.herokuapp.com",
-      github: "https://github.com/yourusername/chat-app",
-      icon: FiMessageSquare,
-      color: "var(--dusty-rose)",
-    },
-    {
-      id: 4,
-      title: "Task Management System",
-      description:
-        "Collaborative project management tool with drag-and-drop functionality, team collaboration features, time tracking, and progress visualization.",
-      techStack: ["Vue.js", "Python", "Django", "PostgreSQL", "Docker"],
-      image:
-        "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=600&h=400&fit=crop&crop=center",
-      liveDemo: "https://task-manager-demo.netlify.app",
-      github: "https://github.com/yourusername/task-manager",
-      icon: FiCode,
-      color: "var(--accent-primary)",
     },
   ]
 
@@ -104,10 +90,10 @@ const Projects = () => {
           className="section-header"
         >
           <h2 className="heading-secondary text-center">
-            Featured <span className="text-accent">Projects</span>
+            My <span className="text-accent">Projects</span>
           </h2>
           <p className="text-body text-center section-subtitle">
-            A showcase of my recent work and creative solutions
+            AI-powered applications and innovative solutions I've built
           </p>
         </motion.div>
 
@@ -136,17 +122,19 @@ const Projects = () => {
                     <project.icon className="project-icon" />
                   </div>
                   <div className="project-links">
-                    <motion.a
-                      href={project.liveDemo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="project-link"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <FiExternalLink />
-                      <span>Live Demo</span>
-                    </motion.a>
+                    {project.title !== "StayOnTrack" && (
+                      <motion.a
+                        href={project.liveDemo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="project-link"
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <FiExternalLink />
+                        <span>Live Demo</span>
+                      </motion.a>
+                    )}
                     <motion.a
                       href={project.github}
                       target="_blank"
@@ -198,15 +186,17 @@ const Projects = () => {
                 </div>
 
                 <div className="project-actions">
-                  <a
-                    href={project.liveDemo}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn btn-primary project-btn"
-                  >
-                    <FiExternalLink />
-                    View Project
-                  </a>
+                  {project.title !== "StayOnTrack" && (
+                    <a
+                      href={project.liveDemo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn btn-primary project-btn"
+                    >
+                      <FiExternalLink />
+                      View Project
+                    </a>
+                  )}
                   <a
                     href={project.github}
                     target="_blank"

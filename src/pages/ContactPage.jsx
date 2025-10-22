@@ -3,10 +3,11 @@ import { useNavigate } from "react-router-dom"
 import {
   FiArrowLeft,
   FiMail,
-  FiPhone,
   FiMapPin,
   FiGithub,
   FiLinkedin,
+  FiTwitter,
+  FiInstagram,
 } from "react-icons/fi"
 import "./ContactPage.css"
 
@@ -17,20 +18,38 @@ const ContactPage = () => {
     {
       icon: FiMail,
       label: "Email",
-      value: "aayushraina23@gmail.com",
-      href: "mailto:aayushraina23@gmail.com",
+      value: "aayushraina3@gmail.com",
+      href: "mailto:aayushraina3@gmail.com",
+    },
+    {
+      icon: FiMapPin,
+      label: "Location",
+      value: "Birmingham, UK",
+      href: null,
     },
     {
       icon: FiGithub,
       label: "GitHub",
-      value: "aayushraina23",
-      href: "https://github.com/aayushraina23",
+      value: "aayushraina3",
+      href: "https://github.com/aayushraina3",
     },
     {
       icon: FiLinkedin,
       label: "LinkedIn",
-      value: "aayushraina23",
-      href: "https://linkedin.com/in/aayushraina23",
+      value: "aayushraina3",
+      href: "https://linkedin.com/in/aayushraina3",
+    },
+    {
+      icon: FiTwitter,
+      label: "Twitter",
+      value: "@aayushraina3",
+      href: "https://twitter.com/aayushraina3",
+    },
+    {
+      icon: FiInstagram,
+      label: "Instagram",
+      value: "@aayushraina3",
+      href: "https://instagram.com/aayushraina3",
     },
   ]
 
@@ -66,8 +85,9 @@ const ContactPage = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.6 }}
         >
-          I'm always open to discussing new opportunities and interesting
-          projects
+          Ready to bring your ideas to life? I'm always open to discussing new
+          opportunities, collaborative projects, and building digital products
+          that put people first.
         </motion.p>
       </div>
 
@@ -75,7 +95,17 @@ const ContactPage = () => {
         <div className="contact-cards">
           {contactInfo.map((contact, index) => {
             const IconComponent = contact.icon
-            return (
+            const CardContent = (
+              <>
+                <div className="contact-icon">
+                  <IconComponent />
+                </div>
+                <h3>{contact.label}</h3>
+                <p>{contact.value}</p>
+              </>
+            )
+
+            return contact.href ? (
               <motion.a
                 key={contact.label}
                 href={contact.href}
@@ -89,12 +119,19 @@ const ContactPage = () => {
                 transition={{ delay: 0.4 + index * 0.1, duration: 0.6 }}
                 whileHover={{ y: -8, scale: 1.02 }}
               >
-                <div className="contact-icon">
-                  <IconComponent />
-                </div>
-                <h3>{contact.label}</h3>
-                <p>{contact.value}</p>
+                {CardContent}
               </motion.a>
+            ) : (
+              <motion.div
+                key={contact.label}
+                className="contact-card"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 + index * 0.1, duration: 0.6 }}
+                whileHover={{ y: -8, scale: 1.02 }}
+              >
+                {CardContent}
+              </motion.div>
             )
           })}
         </div>
