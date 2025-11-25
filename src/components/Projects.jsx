@@ -1,15 +1,18 @@
 import { motion } from "framer-motion"
 import { useInView } from "react-intersection-observer"
+import { useNavigate } from "react-router-dom"
 import {
   FiExternalLink,
   FiGithub,
   FiCode,
   FiTarget,
   FiFileText,
+  FiHeart,
 } from "react-icons/fi"
 import "./Projects.css"
 
 const Projects = () => {
+  const navigate = useNavigate()
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -55,6 +58,18 @@ const Projects = () => {
       icon: FiFileText,
       color: "var(--terracotta)",
     },
+    // {
+    //   id: 3,
+    //   title: "Easi",
+    //   description:
+    //     "A Stress Management Ecosystem for Students and Professionals. User research-driven UX design project integrating WHOOP API for real-time stress tracking with personalized recommendations.",
+    //   techStack: ["Figma", "React", "WHOOP API", "User Research", "UX Design"],
+    //   image:
+    //     "https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=600&h=400&fit=crop&crop=center",
+    //   caseStudy: "/easi",
+    //   icon: FiHeart,
+    //   color: "var(--dusty-rose)",
+    // },
   ]
 
   const containerVariants = {
@@ -84,7 +99,7 @@ const Projects = () => {
     <section className="projects" id="projects" ref={ref}>
       <div className="container">
         <motion.div
-          className="projects-grid"
+          className="projects-list"
           variants={containerVariants}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
@@ -92,57 +107,31 @@ const Projects = () => {
           {projects.map((project, index) => (
             <motion.div
               key={project.id}
-              className="project-card"
+              className="project-card-horizontal"
               variants={projectVariants}
-              whileHover={{ y: -10 }}
+              whileHover={{ scale: 1.02 }}
               style={{ "--project-color": project.color }}
             >
-              <div className="project-image-container">
+              <div className="project-image-wrapper">
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="project-image"
+                  className="project-image-horizontal"
                 />
-                <div className="project-overlay">
-                  <div className="project-icon-wrapper">
-                    <project.icon className="project-icon" />
-                  </div>
-                  <div className="project-links">
-                    {project.title !== "StayOnTrack" && (
-                      <motion.a
-                        href={project.liveDemo}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="project-link"
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.95 }}
-                      >
-                        <FiExternalLink />
-                        <span>Live Demo</span>
-                      </motion.a>
-                    )}
-                    <motion.a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="project-link"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <FiGithub />
-                      <span>Source Code</span>
-                    </motion.a>
-                  </div>
+                <div className="project-overlay-icon">
+                  <project.icon className="project-icon" />
                 </div>
               </div>
 
-              <div className="project-content">
-                <div className="project-header">
-                  <h3 className="project-title heading-tertiary">
-                    {project.title}
-                  </h3>
-                  <div className="project-number">
-                    {String(index + 1).padStart(2, "0")}
+              <div className="project-content-horizontal">
+                <div className="project-header-horizontal">
+                  <div>
+                    <h3 className="project-title heading-tertiary">
+                      {project.title}
+                    </h3>
+                    <div className="project-number-inline">
+                      {String(index + 1).padStart(2, "0")}
+                    </div>
                   </div>
                 </div>
 
@@ -151,8 +140,7 @@ const Projects = () => {
                 </p>
 
                 <div className="project-tech">
-                  <div className="tech-label">Tech Stack:</div>
-                  <div className="tech-list">
+                  <div className="tech-list-horizontal">
                     {project.techStack.map((tech, techIndex) => (
                       <motion.span
                         key={tech}
@@ -171,8 +159,16 @@ const Projects = () => {
                   </div>
                 </div>
 
-                <div className="project-actions">
-                  {project.title !== "StayOnTrack" && (
+                <div className="project-actions-horizontal">
+                  {project.caseStudy ? (
+                    <button
+                      onClick={() => navigate(project.caseStudy)}
+                      className="btn btn-primary project-btn"
+                    >
+                      <FiFileText />
+                      View Case Study
+                    </button>
+                  ) : project.title !== "StayOnTrack" && project.liveDemo ? (
                     <a
                       href={project.liveDemo}
                       target="_blank"
@@ -182,45 +178,19 @@ const Projects = () => {
                       <FiExternalLink />
                       View Project
                     </a>
+                  ) : null}
+                  {project.github && (
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn btn-secondary project-btn"
+                    >
+                      <FiGithub />
+                      Code
+                    </a>
                   )}
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn btn-secondary project-btn"
-                  >
-                    <FiGithub />
-                    Code
-                  </a>
                 </div>
-              </div>
-
-              {/* Decorative elements */}
-              <div className="project-decoration">
-                <motion.div
-                  className="decoration-circle"
-                  animate={{
-                    scale: [1, 1.2, 1],
-                    rotate: [0, 180, 360],
-                  }}
-                  transition={{
-                    duration: 8,
-                    repeat: Infinity,
-                    ease: "linear",
-                  }}
-                />
-                <motion.div
-                  className="decoration-line"
-                  animate={{
-                    scaleX: [0, 1, 0],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: index * 0.5,
-                  }}
-                />
               </div>
             </motion.div>
           ))}
