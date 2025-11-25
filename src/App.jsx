@@ -3,7 +3,7 @@ import HomePage from "./pages/HomePage"
 import ProjectsPage from "./pages/ProjectsPage"
 import ContactPage from "./pages/ContactPage"
 import ResumePage from "./pages/ResumePage"
-import EasiPage from "./pages/EasiPage"
+// import EasiPage from "./pages/EasiPage"
 import "./styles/globals.css"
 import "./App.css"
 
@@ -16,7 +16,7 @@ function App() {
           <Route path="/projects" element={<ProjectsPage />} />
           <Route path="/resume" element={<ResumePage />} />
           <Route path="/contact" element={<ContactPage />} />
-          <Route path="/easi" element={<EasiPage />} />
+          {/* <Route path="/easi" element={<EasiPage />} /> */}
         </Routes>
       </div>
     </Router>
