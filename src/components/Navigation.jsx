@@ -64,7 +64,7 @@ const Navigation = () => {
         {/* Social Icons - Top Right */}
         <div className="social-icons">
           <motion.a
-            href="https://github.com/aayushraina23"
+            href="https://github.com/aayushraina3"
             target="_blank"
             rel="noopener noreferrer"
             className="social-link"
@@ -76,7 +76,7 @@ const Navigation = () => {
             <FiGithub />
           </motion.a>
           <motion.a
-            href="https://linkedin.com/in/aayushraina23"
+            href="https://linkedin.com/in/aayushraina03/"
             target="_blank"
             rel="noopener noreferrer"
             className="social-link"
@@ -88,7 +88,7 @@ const Navigation = () => {
             <FiLinkedin />
           </motion.a>
           <motion.a
-            href="mailto:aayushraina23@gmail.com"
+            href="mailto:aayushraina3@gmail.com"
             className="social-link"
             whileHover={{ scale: 1.1, y: -2 }}
             initial={{ opacity: 0, y: -20 }}
@@ -157,7 +157,7 @@ const Navigation = () => {
             {/* Mobile Social Icons */}
             <div className="mobile-social-icons">
               <motion.a
-                href="https://github.com/aayushraina23"
+                href="https://github.com/aayushraina3/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mobile-social-link"
@@ -171,7 +171,7 @@ const Navigation = () => {
                 <FiGithub />
               </motion.a>
               <motion.a
-                href="https://linkedin.com/in/aayushraina23"
+                href="https://linkedin.com/in/aayushraina03/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mobile-social-link"
@@ -185,7 +185,7 @@ const Navigation = () => {
                 <FiLinkedin />
               </motion.a>
               <motion.a
-                href="mailto:aayushraina23@gmail.com"
+                href="mailto:aayushraina3@gmail.com"
                 className="mobile-social-link"
                 initial={{ opacity: 0, x: 50 }}
                 animate={{
