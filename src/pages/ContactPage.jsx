@@ -44,7 +44,7 @@ const ContactPage = () => {
           Accept: "application/json",
         },
         body: JSON.stringify({
-          access_key: "YOUR_WEB3FORMS_ACCESS_KEY", // Replace with your actual key from https://web3forms.com
+          access_key: import.meta.env.VITE_FORM_ACCESS_KEY, // Replace with your actual key from https://web3forms.com
           name: formData.name,
           email: formData.email,
           subject: formData.subject,
