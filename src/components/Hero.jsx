@@ -11,21 +11,44 @@ const Hero = () => {
     { text: "नमस्ते", language: "Hindi" },
   ]
 
+  // For testing: To reset and see animation again, run in console:
+  // sessionStorage.removeItem('heroAnimationShown'); sessionStorage.removeItem('heroLastShown'); location.reload();
+
+  // Initialize state - always start with loading for fresh page loads
   const [currentGreeting, setCurrentGreeting] = useState(0)
   const [showMainContent, setShowMainContent] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    // Switch greeting once after 1 second
+    // Use a combination of sessionStorage and a timestamp to detect navigation vs refresh
+    const animationShown = sessionStorage.getItem("heroAnimationShown")
+    const lastShown = sessionStorage.getItem("heroLastShown")
+    const now = Date.now()
+
+    // If animation was shown less than 30 seconds ago, it's likely navigation back
+    const isRecentNavigation = lastShown && now - parseInt(lastShown) < 30000
+
+    // Skip animation only if it's recent navigation back
+    if (animationShown && isRecentNavigation) {
+      setIsLoading(false)
+      setShowMainContent(true)
+      return
+    }
+
+    // Mark that the animation has been shown and when
+    sessionStorage.setItem("heroAnimationShown", "true")
+    sessionStorage.setItem("heroLastShown", Date.now().toString())
+
+    // Switch greeting after 750ms (first half)
     const greetingTimer = setTimeout(() => {
       setCurrentGreeting(1)
-    }, 1000)
+    }, 750)
 
-    // Hide loading and show main content after 2 seconds
+    // Hide loading and show main content after 1.5 seconds total
     const loadingTimer = setTimeout(() => {
       setIsLoading(false)
       setShowMainContent(true)
-    }, 2000)
+    }, 1500)
 
     return () => {
       clearTimeout(greetingTimer)
@@ -148,7 +171,8 @@ const Hero = () => {
 
             <motion.p className="hero-description" variants={itemVariants}>
               With 3 years of experience as a{" "}
-              <span className="hero-highlight">Software Engineer</span> and an academic background in{" "}
+              <span className="hero-highlight">Software Engineer</span> and an
+              academic background in{" "}
               <span className="hero-highlight">Human-Computer Interaction</span>{" "}
               and <span className="hero-highlight">AI</span>, I engineer
               solutions that are accessible, simplify complex user flows, and

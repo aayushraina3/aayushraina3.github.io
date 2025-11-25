@@ -123,7 +123,7 @@
 }
 
 /* Social Links */
-.social-links {
+/* .social-links {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: var(--spacing-sm);
@@ -154,7 +154,7 @@
 
 .social-link svg {
   font-size: 1.1rem;
-}
+} */
 
 /* Newsletter */
 .newsletter-form {

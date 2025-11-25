@@ -185,29 +185,6 @@ body {
   transform: translateY(-2px);
 }
 
-.back-button {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-xs);
-  background: transparent;
-  border: 2px solid var(--prussian-blue);
-  color: var(--prussian-blue);
-  padding: 0.4rem 0.8rem;
-  border-radius: var(--radius-md);
-  font-family: var(--font-secondary);
-  font-weight: 500;
-  font-size: 0.95rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-bottom: var(--spacing-xl);
-}
-
-.back-button:hover {
-  background: var(--prussian-blue);
-  color: var(--eggshell);
-  transform: translateX(-4px);
-}
-
 /* Card Styles */
 .card {
   background: var(--white);

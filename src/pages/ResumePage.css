@@ -1,0 +1,378 @@
+.resume-page {
+  min-height: 100vh;
+  background: var(--bg-primary);
+}
+
+.resume-content {
+  padding: calc(var(--spacing-3xl) + var(--spacing-2xl)) 0 var(--spacing-3xl);
+  min-height: calc(100vh - 80px);
+}
+
+/* Header */
+.resume-header {
+  text-align: center;
+  margin-bottom: var(--spacing-3xl);
+}
+
+.resume-title {
+  font-family: var(--font-primary);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 700;
+  color: var(--rich-black);
+  /* margin-bottom: var(--spacing-sm); */
+}
+
+.resume-subtitle {
+  font-family: var(--font-secondary);
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: var(--paynes-gray);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Sections */
+.resume-section {
+  margin-bottom: var(--spacing-3xl);
+}
+
+.section-title {
+  font-family: var(--font-primary);
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 600;
+  color: var(--rich-black);
+  margin-bottom: var(--spacing-xl);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 3px solid var(--prussian-blue);
+}
+
+.section-icon {
+  color: var(--prussian-blue);
+  font-size: 1.8rem;
+}
+
+/* Skills Grid */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-xl);
+}
+
+.skill-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-md);
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.skill-item:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-5px);
+}
+
+.skill-icon {
+  font-size: 2.5rem;
+  color: var(--skill-color);
+  transition: transform 0.3s ease;
+}
+
+.skill-item:hover .skill-icon {
+  transform: scale(1.2);
+}
+
+.skill-name {
+  font-family: var(--font-secondary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  text-align: center;
+}
+
+/* Timeline */
+.timeline {
+  position: relative;
+  padding-left: var(--spacing-2xl);
+  margin-top: var(--spacing-xl);
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(
+    to bottom,
+    var(--prussian-blue),
+    var(--silver-lake-blue)
+  );
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: var(--spacing-2xl);
+}
+
+.timeline-marker {
+  position: absolute;
+  left: calc(-1 * var(--spacing-2xl) - 6px);
+  top: 8px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: var(--prussian-blue);
+  border: 3px solid var(--bg-primary);
+  box-shadow: 0 0 0 3px var(--prussian-blue);
+  z-index: 1;
+}
+
+.timeline-content {
+  background: var(--bg-secondary);
+  padding: var(--spacing-xl);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s ease;
+}
+
+.timeline-content:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateX(5px);
+}
+
+.job-title {
+  font-family: var(--font-primary);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--prussian-blue);
+  margin-bottom: var(--spacing-sm);
+}
+
+.job-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid rgba(116, 140, 171, 0.2);
+}
+
+.company,
+.location,
+.period {
+  font-family: var(--font-secondary);
+  font-size: 0.95rem;
+  color: var(--paynes-gray);
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.company {
+  font-weight: 600;
+  color: var(--rich-black);
+}
+
+.responsibilities {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.responsibilities li {
+  font-family: var(--font-secondary);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-sm);
+  padding-left: var(--spacing-md);
+  position: relative;
+}
+
+.responsibilities li::before {
+  content: "▹";
+  position: absolute;
+  left: 0;
+  color: var(--prussian-blue);
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+/* Education Grid */
+.education-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: var(--spacing-xl);
+  margin-top: var(--spacing-xl);
+}
+
+.education-card {
+  background: var(--bg-secondary);
+  padding: var(--spacing-xl);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s ease;
+  border-left: 4px solid var(--prussian-blue);
+}
+
+.education-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-5px);
+}
+
+.degree {
+  font-family: var(--font-primary);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--prussian-blue);
+  margin-bottom: var(--spacing-md);
+  line-height: 1.4;
+}
+
+.school-info {
+  margin-bottom: var(--spacing-md);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid rgba(116, 140, 171, 0.2);
+}
+
+.school-name {
+  font-family: var(--font-secondary);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--rich-black);
+  margin-bottom: var(--spacing-xs);
+}
+
+.school-location,
+.school-period {
+  font-family: var(--font-secondary);
+  font-size: 0.9rem;
+  color: var(--paynes-gray);
+  margin-bottom: 0.3rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.gpa {
+  font-family: var(--font-secondary);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--prussian-blue);
+  margin-top: var(--spacing-xs);
+}
+
+.courses h4 {
+  font-family: var(--font-primary);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--rich-black);
+  margin-bottom: var(--spacing-sm);
+}
+
+.courses ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-xs);
+}
+
+.courses li {
+  font-family: var(--font-secondary);
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  padding-left: var(--spacing-md);
+  position: relative;
+}
+
+.courses li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--prussian-blue);
+  font-weight: bold;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .education-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .resume-content {
+    padding: var(--spacing-2xl) 0;
+  }
+
+  .skills-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: var(--spacing-sm);
+  }
+
+  .skill-item {
+    padding: var(--spacing-sm);
+  }
+
+  .skill-icon {
+    font-size: 2rem;
+  }
+
+  .timeline {
+    padding-left: var(--spacing-lg);
+  }
+
+  .timeline-marker {
+    left: calc(-1 * var(--spacing-lg) - 6px);
+  }
+
+  .timeline-content {
+    padding: var(--spacing-md);
+  }
+
+  .job-meta {
+    flex-direction: column;
+    gap: var(--spacing-xs);
+  }
+
+  .education-card {
+    padding: var(--spacing-md);
+  }
+
+  .courses ul {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .resume-header {
+    margin-bottom: var(--spacing-2xl);
+  }
+
+  .skills-grid {
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  }
+
+  .skill-name {
+    font-size: 0.8rem;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-xs);
+  }
+}

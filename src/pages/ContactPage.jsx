@@ -1,18 +1,72 @@
+import { useState } from "react"
 import { motion } from "framer-motion"
-import { useNavigate } from "react-router-dom"
+import Navigation from "../components/Navigation"
+import Footer from "../components/Footer"
 import {
-  FiArrowLeft,
   FiMail,
   FiMapPin,
   FiGithub,
   FiLinkedin,
-  FiTwitter,
-  FiInstagram,
+  FiSend,
+  FiUser,
+  FiMessageSquare,
 } from "react-icons/fi"
 import "./ContactPage.css"
 
 const ContactPage = () => {
-  const navigate = useNavigate()
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState(null)
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    })
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setSubmitStatus(null)
+
+    try {
+      // Using Web3Forms (free service for static sites)
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: "YOUR_WEB3FORMS_ACCESS_KEY", // Replace with your actual key from https://web3forms.com
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        }),
+      })
+
+      const result = await response.json()
+
+      if (result.success) {
+        setSubmitStatus("success")
+        setFormData({ name: "", email: "", subject: "", message: "" })
+      } else {
+        setSubmitStatus("error")
+      }
+    } catch (error) {
+      setSubmitStatus("error")
+      console.error("Error submitting form:", error)
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
   const contactInfo = [
     {
@@ -27,130 +81,234 @@ const ContactPage = () => {
       value: "Birmingham, UK",
       href: null,
     },
+  ]
+
+  const socialLinks = [
     {
       icon: FiGithub,
       label: "GitHub",
-      value: "aayushraina3",
       href: "https://github.com/aayushraina3",
     },
     {
       icon: FiLinkedin,
       label: "LinkedIn",
-      value: "aayushraina3",
-      href: "https://linkedin.com/in/aayushraina3",
-    },
-    {
-      icon: FiTwitter,
-      label: "Twitter",
-      value: "@aayushraina3",
-      href: "https://twitter.com/aayushraina3",
-    },
-    {
-      icon: FiInstagram,
-      label: "Instagram",
-      value: "@aayushraina3",
-      href: "https://instagram.com/aayushraina3",
+      href: "https://linkedin.com/in/aayushraina03",
     },
   ]
 
   return (
-    <motion.div
-      className="contact-page"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.6 }}
-    >
-      <div className="contact-page-header">
-        <motion.button
-          className="back-button"
-          onClick={() => navigate("/")}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <FiArrowLeft />
-          Back to Home
-        </motion.button>
-        <motion.h1
-          className="contact-page-title"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.6 }}
-        >
-          Get In Touch
-        </motion.h1>
-        <motion.p
-          className="contact-page-subtitle"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.6 }}
-        >
-          Ready to bring your ideas to life? I'm always open to discussing new
-          opportunities, collaborative projects, and building digital products
-          that put people first.
-        </motion.p>
-      </div>
+    <div className="contact-page">
+      <Navigation />
+      <motion.div
+        className="contact-page-content"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -20 }}
+        transition={{ duration: 0.6 }}
+      >
+        <div className="contact-container">
+          {/* Header */}
+          <motion.div
+            className="contact-header"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+          >
+            <h2 className="contact-title">Let's Connect!</h2>
+            <p className="contact-subtitle">
+              Have a project in mind or just want to chat? I'd love to hear from
+              you.
+            </p>
+          </motion.div>
 
-      <div className="contact-content">
-        <div className="contact-cards">
-          {contactInfo.map((contact, index) => {
-            const IconComponent = contact.icon
-            const CardContent = (
-              <>
-                <div className="contact-icon">
-                  <IconComponent />
+          <div className="contact-grid">
+            {/* Contact Form */}
+            <motion.div
+              className="contact-form-section"
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3, duration: 0.6 }}
+            >
+              <form onSubmit={handleSubmit} className="contact-form">
+                <div className="form-group">
+                  <label htmlFor="name">
+                    <FiUser /> Name
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="Your Name"
+                    required
+                  />
                 </div>
-                <h3>{contact.label}</h3>
-                <p>{contact.value}</p>
-              </>
-            )
 
-            return contact.href ? (
-              <motion.a
-                key={contact.label}
-                href={contact.href}
-                target={contact.href.startsWith("http") ? "_blank" : "_self"}
-                rel={
-                  contact.href.startsWith("http") ? "noopener noreferrer" : ""
-                }
-                className="contact-card"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 + index * 0.1, duration: 0.6 }}
-                whileHover={{ y: -8, scale: 1.02 }}
-              >
-                {CardContent}
-              </motion.a>
-            ) : (
+                <div className="form-group">
+                  <label htmlFor="email">
+                    <FiMail /> Email
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="your.email@example.com"
+                    required
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="subject">
+                    <FiMessageSquare /> Subject
+                  </label>
+                  <input
+                    type="text"
+                    id="subject"
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    placeholder="What's this about?"
+                    required
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="message">
+                    <FiMessageSquare /> Message
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    placeholder="Tell me about your project or idea..."
+                    rows="6"
+                    required
+                  />
+                </div>
+
+                <motion.button
+                  type="submit"
+                  className="submit-button"
+                  disabled={isSubmitting}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  {isSubmitting ? (
+                    "Sending..."
+                  ) : (
+                    <>
+                      <FiSend /> Send Message
+                    </>
+                  )}
+                </motion.button>
+
+                {submitStatus === "success" && (
+                  <motion.div
+                    className="form-status success"
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                  >
+                    Message sent successfully! I'll get back to you soon.
+                  </motion.div>
+                )}
+
+                {submitStatus === "error" && (
+                  <motion.div
+                    className="form-status error"
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                  >
+                    Oops! Something went wrong. Please try again or email me
+                    directly.
+                  </motion.div>
+                )}
+              </form>
+            </motion.div>
+
+            {/* Contact Info Sidebar */}
+            <motion.div
+              className="contact-info-section"
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.4, duration: 0.6 }}
+            >
+              <div className="info-card">
+                <h3>Contact Information</h3>
+                <div className="info-list">
+                  {contactInfo.map((info, index) => {
+                    const IconComponent = info.icon
+                    return (
+                      <motion.div
+                        key={info.label}
+                        className="info-item"
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.5 + index * 0.1, duration: 0.5 }}
+                      >
+                        <div className="info-icon">
+                          <IconComponent />
+                        </div>
+                        <div className="info-text">
+                          <p className="info-label">{info.label}</p>
+                          {info.href ? (
+                            <a href={info.href} className="info-value">
+                              {info.value}
+                            </a>
+                          ) : (
+                            <p className="info-value">{info.value}</p>
+                          )}
+                        </div>
+                      </motion.div>
+                    )
+                  })}
+                </div>
+              </div>
+
+              <div className="social-card">
+                <h3>Connect With Me</h3>
+                <div className="contact-social-links">
+                  {socialLinks.map((social, index) => {
+                    const IconComponent = social.icon
+                    return (
+                      <motion.a
+                        key={social.label}
+                        href={social.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="contact-social-link"
+                        initial={{ opacity: 0, scale: 0 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.7 + index * 0.1, duration: 0.4 }}
+                        whileHover={{ scale: 1.1, y: -3 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <IconComponent />
+                        <span>{social.label}</span>
+                      </motion.a>
+                    )
+                  })}
+                </div>
+              </div>
+
               <motion.div
-                key={contact.label}
-                className="contact-card"
-                initial={{ opacity: 0, y: 30 }}
+                className="availability-badge"
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 + index * 0.1, duration: 0.6 }}
-                whileHover={{ y: -8, scale: 1.02 }}
+                transition={{ delay: 0.9, duration: 0.5 }}
               >
-                {CardContent}
+                <div className="status-dot"></div>
+                <span>Available for freelance projects</span>
               </motion.div>
-            )
-          })}
+            </motion.div>
+          </div>
         </div>
-
-        <motion.div
-          className="contact-message"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8, duration: 0.6 }}
-        >
-          <h2>Let's Work Together</h2>
-          <p>
-            Whether you have a project in mind, want to collaborate, or just
-            want to say hello, I'd love to hear from you. Feel free to reach out
-            through any of the channels above.
-          </p>
-        </motion.div>
-      </div>
-    </motion.div>
+      </motion.div>
+      <Footer />
+    </div>
   )
 }
 

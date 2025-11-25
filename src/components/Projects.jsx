@@ -81,22 +81,8 @@ const Projects = () => {
   }
 
   return (
-    <section className="projects section" id="projects" ref={ref}>
+    <section className="projects" id="projects" ref={ref}>
       <div className="container">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="section-header"
-        >
-          <h2 className="heading-secondary text-center">
-            My <span className="text-accent">Projects</span>
-          </h2>
-          <p className="text-body text-center section-subtitle">
-            AI-powered applications and innovative solutions I've built
-          </p>
-        </motion.div>
-
         <motion.div
           className="projects-grid"
           variants={containerVariants}
